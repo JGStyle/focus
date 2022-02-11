@@ -11,6 +11,25 @@ const Home: NextPage = () => {
 
   function handleClick() {
     setTimerActive((prev) => !prev);
+    requestNotificationPermission();
+  }
+
+  function notifyUser(text: string) {
+    const notification = new Notification("focus", {
+      body: text,
+    });
+    const audio = new Audio("/notification.mp3");
+    audio.play();
+  }
+
+  function requestNotificationPermission() {
+    if (Notification.permission === "default") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          notifyUser("You will be notified once the timer runs out.");
+        }
+      });
+    }
   }
 
   useEffect(() => {
@@ -20,11 +39,17 @@ const Home: NextPage = () => {
           if (minutes == 0) {
             if (status == "focus.") {
               setStatus("take a break.");
+              if (Notification.permission === "granted") {
+                notifyUser("take a break.");
+              }
               setSeconds(0);
               setMinutes(5);
               setTimerActive(false);
             } else {
               setStatus("focus.");
+              if (Notification.permission === "granted") {
+                notifyUser("time to learn!");
+              }
               setMinutes(25);
               setSeconds(0);
               setTimerActive(false);
