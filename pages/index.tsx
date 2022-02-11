@@ -3,15 +3,23 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 
 const Home: NextPage = () => {
+  const [worktime, setWorktime] = useState(25);
+  const [pausetime, setPausetime] = useState(5);
+
   const [progress, setProgress] = useState(0);
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
   const [status, setStatus] = useState("focus.");
 
+  const [flag, setFlag] = useState(true);
+
   function handleClick() {
     setTimerActive((prev) => !prev);
     requestNotificationPermission();
+    if (flag) {
+      setFlag(false);
+    }
   }
 
   function notifyUser(text: string) {
@@ -43,14 +51,14 @@ const Home: NextPage = () => {
                 notifyUser("take a break.");
               }
               setSeconds(0);
-              setMinutes(5);
+              setMinutes(pausetime);
               setTimerActive(false);
             } else {
               setStatus("focus.");
               if (Notification.permission === "granted") {
                 notifyUser("time to learn!");
               }
-              setMinutes(25);
+              setMinutes(worktime);
               setSeconds(0);
               setTimerActive(false);
             }
@@ -72,9 +80,9 @@ const Home: NextPage = () => {
   function updateClock() {
     let full = 0;
     if (status == "focus.") {
-      full = 25 * 60;
+      full = worktime * 60;
     } else {
-      full = 5 * 60;
+      full = pausetime * 60;
     }
     let secs = minutes * 60 + seconds;
     let deg = (1 - secs / full) * 360;
@@ -89,7 +97,7 @@ const Home: NextPage = () => {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-title" content="focus" />
       </Head>
-      <div className="h-screen flex flex-col items-center justify-center dark:bg-black">
+      <div className="h-screen max-h-screen flex flex-col items-center justify-center dark:bg-black">
         <h2 className="text-3xl font-black mb-3 dark:text-slate-300">
           {status}
         </h2>
@@ -115,6 +123,48 @@ const Home: NextPage = () => {
             </button>
           </div>
         </div>
+        <footer className="w-full dark:text-gray-500 absolute bottom-2 transform translate-y-8 hover:translate-y-0 transition-all">
+          <div
+            className="text-center h-40 text-2xl"
+            style={{ lineHeight: "10rem" }}
+          >
+            ↑
+          </div>
+          <div className="flex justify-center">
+            <div className="mr-2">
+              <input
+                type="text"
+                name="minutes"
+                value={worktime}
+                onChange={(e) => {
+                  setWorktime(parseInt(e.target.value));
+                  if (flag) {
+                    setMinutes(parseInt(e.target.value));
+                  }
+                }}
+                onFocus={(e) => e.target.select()}
+                className="w-6 bg-transparent text-right"
+              />
+              min
+              <input
+                type="text"
+                name="minutes"
+                value={pausetime}
+                onChange={(e) => setPausetime(parseInt(e.target.value))}
+                onFocus={(e) => e.target.select()}
+                className="w-6 bg-transparent text-right "
+              />
+              min
+            </div>
+            •
+            <a
+              className="ml-2 hover:underline"
+              href="https://github.com/JGStyle"
+            >
+              Made by JGS • opensource v1.4
+            </a>
+          </div>
+        </footer>
       </div>
     </div>
   );
