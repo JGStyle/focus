@@ -85,9 +85,9 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <meta name="apple-mobile-web-abb-capable" content="yes" />
-        <meta name="mobile-web-abb-capable" content="yes" />
-        <meta name="mobile-web-abb-title" content="focus" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-title" content="focus" />
       </Head>
       <div className="h-screen flex flex-col items-center justify-center dark:bg-black">
         <h2 className="text-3xl font-black mb-3 dark:text-slate-300">
