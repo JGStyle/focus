@@ -10,6 +10,13 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+  }
+  /* Dark theme styles go here */
+}
+
 a {
   color: inherit;
   text-decoration: none;
