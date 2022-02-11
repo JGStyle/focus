@@ -53,6 +53,7 @@ const Home: NextPage = () => {
               setSeconds(0);
               setMinutes(pausetime);
               setTimerActive(false);
+              setProgress(0);
             } else {
               setStatus("focus.");
               if (Notification.permission === "granted") {
@@ -61,6 +62,7 @@ const Home: NextPage = () => {
               setMinutes(worktime);
               setSeconds(0);
               setTimerActive(false);
+              setProgress(0);
             }
             setTimerActive(false);
           } else {
@@ -93,7 +95,11 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
+        <title>
+          {minutes}:{seconds} - {status}
+        </title>
         <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="focus" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-title" content="focus" />
       </Head>
@@ -143,16 +149,16 @@ const Home: NextPage = () => {
                   }
                 }}
                 onFocus={(e) => e.target.select()}
-                className="w-6 bg-transparent text-right"
+                className="w-6 bg-transparent text-center"
               />
-              min
+              min ⇄
               <input
                 type="text"
                 name="minutes"
                 value={pausetime}
                 onChange={(e) => setPausetime(parseInt(e.target.value))}
                 onFocus={(e) => e.target.select()}
-                className="w-6 bg-transparent text-right "
+                className="w-6 bg-transparent text-center"
               />
               min
             </div>
