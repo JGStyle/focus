@@ -173,21 +173,25 @@ const Home: NextPage = () => {
         </div>
         <div className="mt-20"></div>
 
-        <footer className="w-full dark:text-gray-500 absolute bottom-8 transform translate-y-14 hover:translate-y-0 transition-all">
+        <footer className="w-full dark:text-gray-500 absolute bottom-0 transform translate-y-14 hover:translate-y-0 transition-all">
           <div
             className="text-center h-40 text-2xl"
             style={{ lineHeight: "10rem" }}
           >
             ↑
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center h-12">
             <div className="mr-2">
               <input
                 type="text"
                 name="minutes"
                 value={worktime}
                 onChange={(e) => {
-                  setWorktime(parseInt(e.target.value));
+                  if (!isNaN(parseInt(e.target.value))) {
+                    setWorktime(parseInt(e.target.value));
+                  } else {
+                    setWorktime(25);
+                  }
                   if (flag) {
                     setMinutes(parseInt(e.target.value));
                   }
@@ -200,7 +204,13 @@ const Home: NextPage = () => {
                 type="text"
                 name="minutes"
                 value={pausetime}
-                onChange={(e) => setPausetime(parseInt(e.target.value))}
+                onChange={(e) => {
+                  if (!isNaN(parseInt(e.target.value))) {
+                    setPausetime(parseInt(e.target.value));
+                  } else {
+                    setPausetime(5);
+                  }
+                }}
                 onFocus={(e) => e.target.select()}
                 className="w-6 bg-transparent text-center"
               />
@@ -215,7 +225,7 @@ const Home: NextPage = () => {
             </a>
             •
             <button
-              className="hover:underline ml-2"
+              className="hover:underline ml-2 inline-flex"
               onClick={() =>
                 alert(
                   "if you have problems with the notifications, make sure to enable autoplay and allow notifications. for other help, contact jgs+support@jws.de"
