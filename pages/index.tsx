@@ -209,7 +209,7 @@ const Home: NextPage = () => {
               className="ml-2 hover:underline mr-2"
               href="https://github.com/JGStyle"
             >
-              Made by JGS • opensource v1.5
+              Made by JGS v1.5
             </a>
             •
             <button
