@@ -11,8 +11,9 @@ const Home: NextPage = () => {
   const [seconds, setSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
   const [status, setStatus] = useState("focus.");
-
   const [flag, setFlag] = useState(true);
+
+  const [theme, setTheme] = useState("system");
 
   function handleClick() {
     setTimerActive((prev) => !prev);
@@ -41,6 +42,7 @@ const Home: NextPage = () => {
   }
 
   useEffect(() => {
+    adoptTheme();
     const interval = setInterval(() => {
       if (timerActive) {
         if (seconds == 0) {
@@ -92,6 +94,33 @@ const Home: NextPage = () => {
     setProgress(deg);
   }
 
+  function handleSelectTheme(selected: string) {
+    switch (selected) {
+      case "light":
+        localStorage.theme = "light";
+        break;
+      case "dark":
+        localStorage.theme = "dark";
+        break;
+      default:
+        localStorage.removeItem("theme");
+        break;
+    }
+    adoptTheme();
+  }
+
+  function adoptTheme() {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -103,7 +132,20 @@ const Home: NextPage = () => {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-title" content="focus" />
       </Head>
-      <div className="h-screen max-h-screen flex flex-col items-center justify-center dark:bg-black">
+      <header className="flex flex-row-reverse dark:bg-black">
+        <select
+          name="theme"
+          className="bg-white dark:bg-black text-gray-600 appearance-none"
+          onChange={(e) => {
+            handleSelectTheme(e.target.value);
+          }}
+        >
+          <option value="system">system</option>
+          <option value="light">light</option>
+          <option value="dark">dark</option>
+        </select>
+      </header>
+      <div className="h-screen max-h-screen flex flex-col items-center justify-center bg-white dark:bg-black">
         <h2 className="text-3xl font-black mb-3 dark:text-slate-300">
           {status}
         </h2>
@@ -164,11 +206,22 @@ const Home: NextPage = () => {
             </div>
             •
             <a
-              className="ml-2 hover:underline"
+              className="ml-2 hover:underline mr-2"
               href="https://github.com/JGStyle"
             >
-              Made by JGS • opensource v1.4
+              Made by JGS • opensource v1.5
             </a>
+            •
+            <button
+              className="hover:underline ml-2"
+              onClick={() =>
+                alert(
+                  "if you have problems with the notifications, make sure to enable autoplay and allow notifications. for other help, contact jgs+support@jws.de"
+                )
+              }
+            >
+              help
+            </button>
           </div>
         </footer>
       </div>
