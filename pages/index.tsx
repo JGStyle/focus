@@ -171,6 +171,8 @@ const Home: NextPage = () => {
             </button>
           </div>
         </div>
+        <div className="mt-20"></div>
+
         <footer className="w-full dark:text-gray-500 absolute bottom-8 transform translate-y-14 hover:translate-y-0 transition-all">
           <div
             className="text-center h-40 text-2xl"

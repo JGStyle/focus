@@ -12,6 +12,13 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+html.dark {
+  background-color: black;
+}
+body.dark {
+  background-color: black;
+}
+
 a {
   color: inherit;
   text-decoration: none;
