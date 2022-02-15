@@ -152,7 +152,7 @@ const Home: NextPage = () => {
         </select>
       </header>
       {streak > 0 && (
-        <h1 className="absolute top-0 right-1/2 md:top-1/2 md:right-0 transform translate-x-1/2 md:translate-x-0 md:-translate-y-1/2 text-5xl font-bold bg-gray-200 dark:text-white dark:bg-gray-900 w-32 h-32 flex items-center justify-center rounded-b-full md:rounded-l-full md:rounded-br-none">
+        <h1 className="absolute top-0 right-1/2 md:top-1/2 md:right-0 transform translate-x-1/2 md:translate-x-0 md:-translate-y-1/2 text-5xl font-bold bg-gray-200 dark:text-slate-300 dark:bg-gray-900 w-32 h-32 flex items-center justify-center rounded-b-full md:rounded-l-full md:rounded-br-none">
           {streak}
         </h1>
       )}
