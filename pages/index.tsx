@@ -118,8 +118,12 @@ const Home: NextPage = () => {
         window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       document.documentElement.classList.add("dark");
+      // @ts-ignore
+      document.getElementById("theme").value = "dark";
     } else {
       document.documentElement.classList.remove("dark");
+      // @ts-ignore
+      document.getElementById("theme").value = "light";
     }
   }
 
@@ -137,12 +141,12 @@ const Home: NextPage = () => {
       <header className="flex flex-row-reverse dark:bg-black">
         <select
           name="theme"
+          id="theme"
           className="bg-white dark:bg-black text-gray-600 appearance-none"
           onChange={(e) => {
             handleSelectTheme(e.target.value);
           }}
         >
-          <option value="system">theme</option>
           <option value="light">light</option>
           <option value="dark">dark</option>
         </select>
