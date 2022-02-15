@@ -142,7 +142,7 @@ const Home: NextPage = () => {
             handleSelectTheme(e.target.value);
           }}
         >
-          <option value="system">system</option>
+          <option value="system">theme</option>
           <option value="light">light</option>
           <option value="dark">dark</option>
         </select>
