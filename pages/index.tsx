@@ -12,8 +12,7 @@ const Home: NextPage = () => {
   const [timerActive, setTimerActive] = useState(false);
   const [status, setStatus] = useState("focus.");
   const [flag, setFlag] = useState(true);
-
-  const [theme, setTheme] = useState("system");
+  const [streak, setStreak] = useState(0);
 
   function handleClick() {
     setTimerActive((prev) => !prev);
@@ -36,9 +35,15 @@ const Home: NextPage = () => {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
           notifyUser("You will be notified once the timer runs out.");
+          const audio = new Audio("/notification.mp3");
+          audio.play();
         }
       });
     }
+  }
+
+  function increaseStreak() {
+    setStreak((prev) => prev + 1);
   }
 
   useEffect(() => {
@@ -52,20 +57,17 @@ const Home: NextPage = () => {
               if (Notification.permission === "granted") {
                 notifyUser("take a break.");
               }
-              setSeconds(0);
+              increaseStreak();
               setMinutes(pausetime);
-              setTimerActive(false);
-              setProgress(0);
             } else {
               setStatus("focus.");
               if (Notification.permission === "granted") {
                 notifyUser("time to learn!");
               }
               setMinutes(worktime);
-              setSeconds(0);
-              setTimerActive(false);
-              setProgress(0);
             }
+            setProgress(0);
+            setSeconds(0);
             setTimerActive(false);
           } else {
             setMinutes((prev) => prev - 1);
@@ -145,6 +147,11 @@ const Home: NextPage = () => {
           <option value="dark">dark</option>
         </select>
       </header>
+      {streak > 0 && (
+        <h1 className="absolute top-0 right-1/2 md:top-1/2 md:right-0 transform translate-x-1/2 md:translate-x-0 md:-translate-y-1/2 text-5xl font-bold bg-gray-200 dark:text-white dark:bg-gray-900 w-32 h-32 flex items-center justify-center rounded-b-full md:rounded-l-full md:rounded-br-none">
+          {streak}
+        </h1>
+      )}
       <div className="h-screen max-h-screen flex flex-col items-center justify-center bg-white dark:bg-black">
         <h2 className="text-3xl font-black mb-3 dark:text-slate-300">
           {status}
@@ -221,7 +228,7 @@ const Home: NextPage = () => {
               className="ml-2 hover:underline mr-2"
               href="https://github.com/JGStyle"
             >
-              Made by JGS v1.5
+              Made by JGS v1.6
             </a>
             •
             <button
