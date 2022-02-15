@@ -121,7 +121,7 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <title>
-          {minutes}:{seconds} - {status}
+          {minutes}:{`${seconds < 10 ? "0" + seconds : seconds}`} - {status}
         </title>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="focus" />
